@@ -24,7 +24,6 @@ public class Network : MonoBehaviour {
     private void OnConnected(SocketIOEvent e)
     {
         Debug.Log("connected");
-        socket.Emit("move");
     }
 
 

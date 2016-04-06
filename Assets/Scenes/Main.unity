@@ -98,7 +98,7 @@ GameObject:
   - 23: {fileID: 314329112}
   - 114: {fileID: 314329116}
   m_Layer: 0
-  m_Name: Quad
+  m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -266,6 +266,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb05a39b83c4347f9947705ff44de819, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &574172755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 574172752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acc9dc2dae2ff4d8497530266c2a0762, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  socket: {fileID: 557897647}
 --- !u!1 &983447860
 GameObject:
   m_ObjectHideFlags: 0
