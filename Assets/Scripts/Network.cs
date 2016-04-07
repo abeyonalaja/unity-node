@@ -13,7 +13,13 @@ public class Network : MonoBehaviour {
         socket = GetComponent<SocketIOComponent>();
         socket.On("open", OnConnected);
         socket.On("spawn", OnSpawned);
+        socket.On("move", OnMove);
 	}
+
+    private void OnMove(SocketIOEvent e)
+    {
+        Debug.Log("A Player is moving " + e.data);
+    }
 
     private void OnSpawned(SocketIOEvent e)
     {
