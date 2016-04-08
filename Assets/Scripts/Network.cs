@@ -16,9 +16,19 @@ public class Network : MonoBehaviour {
         socket.On("spawn", OnSpawned);
         socket.On("move", OnMove);
         socket.On("registered", OnRegistered);
+        socket.On("disconnected", OnDisconnected);
         
         players = new Dictionary<string, GameObject>();
 	}
+
+    private void OnDisconnected(SocketIOEvent e)
+    {
+        Debug.Log("Player disconnected: " + e.data);
+        var id = e.data["id"].ToString();
+        var player = players[id];
+        Destroy(player);
+        players.Remove(id);
+    }
 
     private void OnMove(SocketIOEvent e)
     {
