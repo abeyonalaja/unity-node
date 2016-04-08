@@ -15,6 +15,7 @@ public class Network : MonoBehaviour {
         socket.On("open", OnConnected);
         socket.On("spawn", OnSpawned);
         socket.On("move", OnMove);
+        socket.On("registered", OnRegistered);
         
         players = new Dictionary<string, GameObject>();
 	}
@@ -22,6 +23,16 @@ public class Network : MonoBehaviour {
     private void OnMove(SocketIOEvent e)
     {
         Debug.Log("A Player is moving " + e.data    );
+        var x = GetFloatFromJson( e.data, "x");
+        var z = GetFloatFromJson( e.data, "y");
+        var pos = new Vector3(x, 0, z);
+        var id = e.data["id"].ToString();
+        var player = players [id];
+       
+        var navigatePos = player.GetComponent<NavigateToPosition>();
+        navigatePos.NavigateTo(pos);
+        
+        Debug.Log(player.name);
     }
 
     private void OnSpawned(SocketIOEvent e)
@@ -37,6 +48,15 @@ public class Network : MonoBehaviour {
     private void OnConnected(SocketIOEvent e)
     {
         Debug.Log("connected");
+    }
+    
+    private void OnRegistered(SocketIOEvent e)
+    {
+        Debug.Log("registered" + e.data);
+    }
+    
+    float GetFloatFromJson(JSONObject data, string key) {
+        return float.Parse(data[key].ToString().Replace("\"", ""));
     }
 
 
