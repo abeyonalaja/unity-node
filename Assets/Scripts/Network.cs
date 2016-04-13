@@ -35,6 +35,7 @@ public class Network : MonoBehaviour {
         Debug.Log("A Player is moving " + e.data    );
         var x = GetFloatFromJson( e.data, "x");
         var z = GetFloatFromJson( e.data, "y");
+       
         var pos = new Vector3(x, 0, z);
         var id = e.data["id"].ToString();
         var player = players [id];
@@ -42,7 +43,7 @@ public class Network : MonoBehaviour {
         var navigatePos = player.GetComponent<NavigateToPosition>();
         navigatePos.NavigateTo(pos);
         
-        Debug.Log(player.name);
+        Debug.Log("Player name is " + player.name);
     }
 
     private void OnSpawned(SocketIOEvent e)
@@ -50,12 +51,16 @@ public class Network : MonoBehaviour {
         // Debug.Log("spawned player " + e.data);
         var player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity) as GameObject;
         
-        var x = GetFloatFromJson( e.data, "x");
-        var z = GetFloatFromJson( e.data, "y");
-        var movePositon = new Vector3(x, 0, z);
+        if(e.data ["x"]) {
+            var x = GetFloatFromJson( e.data, "x");
+            var z = GetFloatFromJson( e.data, "y");
+            var movePositon = new Vector3(x, 0, z);
         
-        var navigatePos = player.GetComponent<NavigateToPosition>();
-        navigatePos.NavigateTo(movePositon);
+            var navigatePos = player.GetComponent<NavigateToPosition>();
+            navigatePos.NavigateTo(movePositon);
+        }
+        
+        
         
         players.Add(e.data["id"].ToString(), player);
         
