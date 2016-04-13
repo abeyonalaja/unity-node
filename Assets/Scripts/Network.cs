@@ -48,7 +48,14 @@ public class Network : MonoBehaviour {
     private void OnSpawned(SocketIOEvent e)
     {
         // Debug.Log("spawned player " + e.data);
-        var player = Instantiate(playerPrefab);
+        var player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity) as GameObject;
+        
+        var x = GetFloatFromJson( e.data, "x");
+        var z = GetFloatFromJson( e.data, "y");
+        var movePositon = new Vector3(x, 0, z);
+        
+        var navigatePos = player.GetComponent<NavigateToPosition>();
+        navigatePos.NavigateTo(movePositon);
         
         players.Add(e.data["id"].ToString(), player);
         
